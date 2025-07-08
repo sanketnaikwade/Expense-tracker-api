@@ -1,0 +1,90 @@
+{
+  "info": {
+    "name": "Expense Tracker API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/api/auth/register", "host": ["{{base_url}}"], "path": ["api","auth","register"] }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/api/auth/login", "host": ["{{base_url}}"], "path": ["api","auth","login"] }
+      }
+    },
+    {
+      "name": "Add Transaction",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"type\": \"expense\",\n  \"amount\": 50,\n  \"category\": \"Food\",\n  \"note\": \"Lunch\",\n  \"date\": \"2025-07-08\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/api/transactions", "host": ["{{base_url}}"], "path": ["api","transactions"] }
+      }
+    },
+    {
+      "name": "Get Transactions",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }],
+        "url": { "raw": "{{base_url}}/api/transactions", "host": ["{{base_url}}"], "path": ["api","transactions"] }
+      }
+    },
+    {
+      "name": "Set Budget",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"month\": \"2025-07\",\n  \"incomeLimit\": 5000,\n  \"expenseLimit\": 2000\n}"
+        },
+        "url": { "raw": "{{base_url}}/api/budget", "host": ["{{base_url}}"], "path": ["api","budget"] }
+      }
+    },
+    {
+      "name": "Get Budget",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }],
+        "url": { "raw": "{{base_url}}/api/budget?month=2025-07", "host": ["{{base_url}}"], "path": ["api","budget"], "query": [{ "key": "month", "value": "2025-07" }] }
+      }
+    },
+    {
+      "name": "Get Budget Stats",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }],
+        "url": { "raw": "{{base_url}}/api/budget/stats?month=2025-07", "host": ["{{base_url}}"], "path": ["api","budget","stats"], "query": [{ "key": "month", "value": "2025-07" }] }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:5000" },
+    { "key": "jwt_token", "value": "" }
+  ]
+}
